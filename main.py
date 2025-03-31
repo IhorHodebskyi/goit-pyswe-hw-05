@@ -25,8 +25,6 @@ class PrivatBankAPI:
         return {date: rates} if rates else None
 
 
-
-
 class CurrencyFetcher:
     def __init__(self, days: int = 10):
         self.days = min(days, 10)
@@ -43,18 +41,12 @@ class CurrencyFetcher:
         return [result for result in results if result] 
 
 
-
-
-
-
-
-
-
 async def main():
 
     fetcher = CurrencyFetcher()
     rates = await fetcher.fetch_rates()
     print(f"{rates}")
+
 
 if __name__ == "__main__":
   
