@@ -26,7 +26,7 @@ class PrivatBankAPI:
 
 
 class CurrencyFetcher:
-    def __init__(self, days: int = 10):
+    def __init__(self, days: int):
         self.days = min(days, 10)
         self.api = PrivatBankAPI()
         
@@ -42,13 +42,10 @@ class CurrencyFetcher:
 
 
 async def main():
-
-    if len(sys.argv) > 1 and sys.argv[1].isdigit():
-        days = int(sys.argv[1])
-    else:
+    if len(sys.argv) < 2 or not sys.argv[1].isdigit():
         print("Enter the number of days!")
         return
-    fetcher = CurrencyFetcher(days)
+    fetcher = CurrencyFetcher(int(sys.argv[1]))
     rates = await fetcher.fetch_rates()
     print(f"{rates}")
 
