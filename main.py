@@ -30,7 +30,7 @@ class CurrencyFetcher:
         self.days = min(days, 10)
         self.api = PrivatBankAPI()
         
-    async def fetch_rates(self):
+    async def fetch_rates(self,):
         tasks: list = []
         async with aiohttp.ClientSession() as session:
             for i in range(self.days):
@@ -43,7 +43,12 @@ class CurrencyFetcher:
 
 async def main():
 
-    fetcher = CurrencyFetcher()
+    if len(sys.argv) > 1 and sys.argv[1].isdigit():
+        days = int(sys.argv[1])
+    else:
+        print("Enter the number of days!")
+        return
+    fetcher = CurrencyFetcher(days)
     rates = await fetcher.fetch_rates()
     print(f"{rates}")
 
